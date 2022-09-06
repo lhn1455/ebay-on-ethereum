@@ -23,7 +23,7 @@ contract EcommerceStore {
         address buyer;
     } 
 
-    constructor() {
+    constructor() public {
         productIndex = 0;
     }
 
@@ -42,7 +42,7 @@ contract EcommerceStore {
         Product memory product = Product(productIndex, _name, _category, _imageLink,_descLink, _startTime,
                                         _price, ProductCondition(_productCondition), address(0));
         stores[msg.sender][productIndex] = product;
-        productIdInStore[productIndex] = payable(msg.sender);
+        productIdInStore[productIndex] = msg.sender; //old-version
 
     }
 
