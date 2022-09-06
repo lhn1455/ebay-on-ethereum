@@ -28,15 +28,13 @@ contract EcommerceStore {
     }
 
     function addProductToStore(
-        uint256 _id, 
         string memory _name, 
         string memory _category, 
         string memory _imageLink, 
         string memory _descLink, 
         uint256 _startTime, 
         uint256 _price, 
-        ProductCondition _productCondition, 
-        address _buyer) public {
+        ProductCondition _productCondition) public {
         
         productIndex += 1;
         Product memory product = Product(productIndex, _name, _category, _imageLink,_descLink, _startTime,
