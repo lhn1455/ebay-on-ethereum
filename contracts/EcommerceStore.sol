@@ -23,7 +23,7 @@ contract EcommerceStore {
         address buyer;
     } 
 
-    constructor() public {
+    constructor() {
         productIndex = 0;
     }
 
@@ -40,7 +40,7 @@ contract EcommerceStore {
         Product memory product = Product(productIndex, _name, _category, _imageLink,_descLink, _startTime,
                                         _price, ProductCondition(_productCondition), address(0));
         stores[msg.sender][productIndex] = product;
-        productIdInStore[productIndex] = msg.sender; //old-version
+        productIdInStore[productIndex] = payable(msg.sender); //old-version
 
     }
 
@@ -58,6 +58,17 @@ contract EcommerceStore {
         
         return (product.id, product.name, product.category, product.imageLink, product.descLink,
                 product.startTime, product.price, product.condition, product.buyer);
+    }
+
+
+    function buy(uint256 _productId) payable public {
+        Product memory product = stores[productIdInStore[_productId]][_productId];
+        require(product.buyer == address(0));
+        require(msg.value >= product.price);
+        product.buyer = msg.sender;
+        stores[productIdInStore[_productId][_productId]]
+        
+
     }
 
     
